@@ -3,18 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calendar Display with Birthday Marking</title>
+    <title>Advanced Calendar</title>
     <style>
         body, html {
             margin: 0;
             padding: 0;
             height: 100%;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: #000; /* Updated background color */
+            background-color: black;
             color: white;
             display: flex;
             flex-direction: column;
-            overflow: hidden; /* Added overflow: hidden */
         }
 
         .container {
@@ -23,26 +22,6 @@
             flex-direction: column;
             padding: 20px;
             position: relative;
-            z-index: 1; /* Added z-index */
-        }
-
-        #vercel-background { /* Added Vercel background styles */
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom right, #000000, #1a1a1a);
-            overflow: hidden;
-            z-index: 0;
-        }
-
-        .vercel-dot { /* Added Vercel dot styles */
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background-color: rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
         }
 
         #ai-button {
@@ -99,27 +78,27 @@
             align-items: center;
             justify-content: center;
             height: 100%;
-            padding-top: 100px;
+            padding-top: 100px; /* Updated padding-top */
         }
 
         #calendar {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            gap: 25px;
-            max-width: 600px;
+            gap: 25px; /* Updated gap */
+            max-width: 600px; /* Updated max-width */
             margin: 0 auto;
         }
 
         .day-number {
-            width: 60px;
-            height: 60px;
+            width: 60px; /* Updated width */
+            height: 60px; /* Updated height */
             display: flex;
             align-items: center;
             justify-content: center;
             color: #666;
             cursor: pointer;
             border-radius: 50%;
-            font-size: 20px;
+            font-size: 20px; /* Updated font-size */
             transition: all 0.3s ease;
             position: relative;
         }
@@ -144,19 +123,19 @@
             bottom: 2px;
             left: 50%;
             transform: translateX(-50%);
-            width: 8px;
-            height: 8px;
+            width: 8px; /* Updated width */
+            height: 8px; /* Updated height */
             background-color: #4CAF50;
             border-radius: 50%;
         }
 
         #month-selector {
             position: relative;
-            max-width: 600px;
-            margin: 30px auto 0;
+            max-width: 600px; /* Updated max-width */
+            margin: 30px auto 0; /* Updated margin */
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 15px; /* Updated gap */
         }
 
         #month-button {
@@ -314,30 +293,6 @@
             text-align: center;
         }
 
-        #music-controls { /* Added music controls styles */
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            z-index: 1000;
-        }
-
-        #music-controls button { /* Added music controls button styles */
-            background-color: rgba(0, 0, 0, 0.5);
-            border: 1px solid #333;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        #music-controls button:hover { /* Added music controls button hover styles */
-            background-color: rgba(51, 51, 51, 0.8);
-        }
-
         /* Responsive Design */
         @media (max-width: 768px) {
             #time-display {
@@ -391,7 +346,6 @@
     </style>
 </head>
 <body>
-    <div id="vercel-background"></div>  <!-- Added Vercel background div -->
     <div class="container">
         <div id="notification">AI is under Development!</div>
         <div id="selected-date-info"></div>
@@ -429,15 +383,7 @@
             </form>
         </div>
     </div>
-    <div id="music-controls">  <!-- Added music controls div -->
-        <button id="play-pause">Play Music</button>
-        <button id="next-track">Next Track</button>
-    </div>
-    <div id="footer">Version 2.4.0 | crafted by sreeman</div>  <!-- Updated version number -->
-    <audio id="background-music" loop>  <!-- Added audio element -->
-        <source src="https://example.com/background-music.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
+    <div id="footer">Version 2.4.0 | crafted by sreeman</div>
 
     <script>
         let selectedDay = null;
@@ -595,45 +541,7 @@
             }
         });
 
-        // Vercel-inspired background
-        function createVercelBackground() {
-            const background = document.getElementById('vercel-background');
-            const dotCount = 50;
-
-            for (let i = 0; i < dotCount; i++) {
-                const dot = document.createElement('div');
-                dot.className = 'vercel-dot';
-                dot.style.left = `${Math.random() * 100}%`;
-                dot.style.top = `${Math.random() * 100}%`;
-                background.appendChild(dot);
-            }
-        }
-
-        // Background music functionality
-        const backgroundMusic = document.getElementById('background-music');
-        const playPauseButton = document.getElementById('play-pause');
-        const nextTrackButton = document.getElementById('next-track');
-
-        let isPlaying = false;
-
-        playPauseButton.addEventListener('click', () => {
-            if (isPlaying) {
-                backgroundMusic.pause();
-                playPauseButton.textContent = 'Play Music';
-            } else {
-                backgroundMusic.play();
-                playPauseButton.textContent = 'Pause Music';
-            }
-            isPlaying = !isPlaying;
-        });
-
-        nextTrackButton.addEventListener('click', () => {
-            // Add logic to switch to the next track
-            console.log('Switching to next track');
-        });
-
         // Initialize
-        createVercelBackground();
         createCalendar();
         createMonthDropdown();
         updateTime();
