@@ -78,28 +78,29 @@
             align-items: center;
             justify-content: center;
             height: 100%;
-            padding-top: 60px;
+            padding-top: 100px; /* Updated padding-top */
         }
 
         #calendar {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            gap: 10px;
-            max-width: 300px;
+            gap: 25px; /* Updated gap */
+            max-width: 600px; /* Updated max-width */
             margin: 0 auto;
         }
 
         .day-number {
-            width: 30px;
-            height: 30px;
+            width: 60px; /* Updated width */
+            height: 60px; /* Updated height */
             display: flex;
             align-items: center;
             justify-content: center;
             color: #666;
             cursor: pointer;
             border-radius: 50%;
-            font-size: 14px;
+            font-size: 20px; /* Updated font-size */
             transition: all 0.3s ease;
+            position: relative;
         }
 
         .day-number:hover {
@@ -108,6 +109,7 @@
 
         .day-number.current {
             color: white;
+            font-weight: bold;
         }
 
         .day-number.selected {
@@ -115,26 +117,33 @@
             color: black;
         }
 
-        .day-number.birthday {
+        .day-number.birthday::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px; /* Updated width */
+            height: 8px; /* Updated height */
             background-color: #4CAF50;
-            color: white;
+            border-radius: 50%;
         }
 
         #month-selector {
             position: relative;
-            max-width: 300px;
-            margin: 20px auto 0;
+            max-width: 600px; /* Updated max-width */
+            margin: 30px auto 0; /* Updated margin */
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 15px; /* Updated gap */
         }
 
         #month-button {
             flex-grow: 1;
-            padding: 6px 12px;
+            padding: 10px 20px;
             border: 1px solid #333;
-            border-radius: 16px;
-            font-size: 14px;
+            border-radius: 25px;
+            font-size: 18px;
             color: #888;
             background-color: rgba(0, 0, 0, 0.5);
             cursor: pointer;
@@ -142,10 +151,10 @@
         }
 
         #add-birthday-button {
-            padding: 6px 12px;
+            padding: 10px 20px;
             border: 1px solid #333;
-            border-radius: 16px;
-            font-size: 20px;
+            border-radius: 25px;
+            font-size: 24px;
             color: #888;
             background-color: black;
             cursor: pointer;
@@ -153,8 +162,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 30px;
-            height: 30px;
+            width: 50px;
+            height: 50px;
         }
 
         #month-dropdown {
@@ -176,8 +185,9 @@
         }
 
         .month-option {
-            padding: 8px 12px;
+            padding: 10px 15px;
             cursor: pointer;
+            font-size: 16px;
         }
 
         .month-option:hover {
@@ -220,23 +230,25 @@
 
         #birthday-form input {
             width: 100%;
-            padding: 8px;
+            padding: 10px;
             margin: 10px 0;
             border: 1px solid #333;
             border-radius: 4px;
             background-color: #222;
             color: white;
             box-sizing: border-box;
+            font-size: 16px;
         }
 
         #birthday-form button {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             background-color: #4CAF50;
             color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            font-size: 16px;
         }
 
         #birthday-form button:hover {
@@ -264,6 +276,23 @@
             z-index: 1000;
         }
 
+        #selected-date-info {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1000;
+            font-size: 18px;
+            text-align: center;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             #time-display {
@@ -275,6 +304,17 @@
                 position: absolute;
                 top: 20px;
                 right: 20px;
+            }
+
+            #calendar {
+                gap: 10px;
+                max-width: 90%;
+            }
+
+            .day-number {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
             }
         }
 
@@ -288,21 +328,27 @@
             }
 
             .day-number {
-                width: 25px;
-                height: 25px;
-                font-size: 12px;
+                width: 30px;
+                height: 30px;
+                font-size: 14px;
             }
 
             #month-selector {
                 flex-direction: row;
                 align-items: center;
             }
+
+            #month-button, #add-birthday-button {
+                padding: 8px 12px;
+                font-size: 14px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div id="notification">AI is under Development!.</div>
+        <div id="notification">AI is under Development!</div>
+        <div id="selected-date-info"></div>
         <div id="time-display">
             <div id="date-header"></div>
             <div id="today">Today</div>
@@ -349,6 +395,7 @@
         const birthdayModal = document.getElementById('birthday-modal');
         const closeModal = document.querySelector('.close');
         const birthdayForm = document.getElementById('birthday-form');
+        const selectedDateInfo = document.getElementById('selected-date-info');
         let birthdays = JSON.parse(localStorage.getItem('birthdays')) || [];
 
         function updateTime() {
@@ -396,6 +443,8 @@
                     dayElement.classList.add('selected');
                     selectedDay = i;
 
+                    showSelectedDateInfo(i);
+
                     setTimeout(() => {
                         dayElement.classList.remove('selected');
                     }, 2000);
@@ -405,6 +454,23 @@
             }
 
             updateMonthButton();
+        }
+
+        function showSelectedDateInfo(day) {
+            const selectedDate = new Date(currentYear, currentMonth, day);
+            const dayName = selectedDate.toLocaleDateString('en-US', { weekday: 'long' });
+            const formattedDate = selectedDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+            
+            selectedDateInfo.textContent = `${dayName}, ${formattedDate}`;
+            selectedDateInfo.style.display = 'block';
+            selectedDateInfo.style.opacity = '1';
+
+            setTimeout(() => {
+                selectedDateInfo.style.opacity = '0';
+                setTimeout(() => {
+                    selectedDateInfo.style.display = 'none';
+                }, 300);
+            }, 2000);
         }
 
         function updateMonthButton() {
