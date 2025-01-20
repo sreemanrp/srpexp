@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sreeman Reddy</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: #000000;
+            color: white;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .banner {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            background-image: url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG_0053-tuMzX89psPpOHrDWJkmjTDEDdiFHji.jpeg');
+            background-size: cover;
+            background-position: center;
+            margin-bottom: 2rem;
+        }
+
+        .profile-section {
+            display: flex;
+            align-items: flex-start;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .profile-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .name {
+            font-size: 2rem;
+            margin-top: 1rem;
+        }
+
+        .roles {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .role-youtuber { color: #FF6B6B; }
+        .role-entrepreneur { color: #4ECDC4; }
+        .role-developer { color: #45B7D1; }
+
+        .mission {
+            font-size: 1.8rem;
+            margin-bottom: 3rem;
+        }
+
+        .contact-box, .course-box {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+
+        .social-links {
+            margin-top: 3rem;
+        }
+
+        .social-links h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: white;
+        }
+
+        .social-links a {
+            display: block;
+            margin-bottom: 1rem;
+            text-decoration: none;
+            font-size: 1.5rem;
+        }
+
+        .youtube { color: #fc3e41; }
+        .instagram { color: #b340ff; }
+        .twitter { color: #638bf6; }
+        .linkedin { color: #4ECDC4; }
+        .email { color: #69ee69; }
+        .github { color: #acb1d6; }
+
+        .underline {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .profile-section {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .roles, .mission {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="banner"></div>
+        
+        <div class="profile-section">
+            <img src="" alt="Profile" class="profile-image">
+            <h1 class="name">Sreeman Reddy</h1>
+        </div>
+
+        <div class="roles">
+            <span class="role-youtuber">YouTuber</span>,
+            <span class="role-entrepreneur">Serial Entrepreneur</span>,
+            <span class="role-developer">Developer</span>
+            and a lot more!
+        </div>
+
+        <div class="mission">
+            I'm currently on the mission to help people be 1% better than yesterday!
+        </div>
+
+        <div class="contact-box">
+            <h2>🗣️ Taking workshops and seminars, contact me on</h2>
+            <p class="underline">alisolanki123@gmail.com</p>
+        </div>
+
+        <div class="course-box">
+            <h2>🚨 Guide to Freelancing Course Launched (Early Bird Offers):</h2>
+            <p class="underline">courses.alisolanki.com</p>
+        </div>
+
+        <div class="social-links">
+            <h2>Find something useful? Consider <span style="color: #4ECDC4;">subscribing</span> to my social media accounts for more.</h2>
+            <a href="#" class="youtube underline">YouTube</a>
+            <a href="#" class="instagram underline">Instagram</a>
+            <a href="#" class="twitter underline">Twitter</a>
+            <a href="#" class="linkedin underline">LinkedIn</a>
+            <a href="mailto:alisolanki123@gmail.com" class="email underline">alisolanki123@gmail.com</a>
+            <a href="#" class="github underline">Github</a>
+        </div>
+    </div>
+</body>
+</html>
